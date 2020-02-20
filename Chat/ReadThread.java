@@ -34,6 +34,8 @@ public class ReadThread extends Thread {
 					String messageTokens[] = message.split(":");
 					System.out.println("Original Message: " + messageTokens[0].trim());
 					System.out.println("HMAC: " + messageTokens[1].trim());
+					String validationMAC = client.generateMac(messageTokens[0].trim());
+					System.out.println("HMAC validation check: " + validationMAC);
 				} else {
 					System.out.println("\n" + response);
 					first = false;
