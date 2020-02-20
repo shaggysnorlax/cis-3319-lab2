@@ -1,2 +1,2 @@
-# cis-3319-lab1
-DES chat
+# cis-3319-lab2
+DES chat with HMAC authentication
