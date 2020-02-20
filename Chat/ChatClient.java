@@ -15,6 +15,8 @@ public class ChatClient {
 	private SecretKey originalKey;
 	DesEncrypter encrypter;
 	String encrypted;
+	Mac hmac;
+	
 
 	public ChatClient(String hostname, int port) {
 		this.hostname = hostname;
@@ -77,6 +79,16 @@ public class ChatClient {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	String generateMac(String message) {
+		hmac = Mac.getInstance("HmacSHA256");
+		hmac.init(originalKey);
+		String messageMac = message;
+		byte[] messageBytes = messageMac.getBytes();
+		byte[] macResult = hmac.doFinal(messageBytes);
+		String result = new String(macResult);
+		return result;
 	}
 
 	public static void main(String[] args) {

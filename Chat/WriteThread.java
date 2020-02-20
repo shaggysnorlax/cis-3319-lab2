@@ -37,10 +37,13 @@ public class WriteThread extends Thread {
 			text = console.readLine("[" + userName + "]: ");
 			
 				try {
-					String encrypted = client.getEncrypter().encrypt(text);
-					System.out.println("Key Value: " + client.getKey());
+					String MAC = client.generateMac(text);
+					String encrypted = client.getEncrypter().encrypt(text + ":" + MAC);
+					System.out.println("Key Value (DES and HMAC): " + client.getKey());
 					System.out.println("Original Message: " + text);
 					System.out.println("Ciphertext: " + encrypted);
+					System.out.println("HMAC algorithm: SHA-256");
+					System.out.println("Generated HMAC: " + MAC);
 					writer.println(encrypted);
 				} catch(Exception e) {
 					e.printStackTrace();

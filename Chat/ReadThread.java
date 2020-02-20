@@ -30,7 +30,10 @@ public class ReadThread extends Thread {
 					System.out.print("\n" + result[0] + ": ");
 					System.out.println("Key Value: " + client.getKey());
 					System.out.println("Ciphertext: " + result[1].trim());
-					System.out.println("Original Message: " + client.getEncrypter().decrypt(result[1].trim()));
+					String message = client.getEncrypter().decrypt(result[1].trim());
+					String messageTokens[] = message.split(":");
+					System.out.println("Original Message: " + messageTokens[0].trim());
+					System.out.println("HMAC: " + messageTokens[1].trim());
 				} else {
 					System.out.println("\n" + response);
 					first = false;
